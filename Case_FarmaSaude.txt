@@ -1,0 +1,21 @@
+Contexto e Problema
+A FarmaSaúde é uma rede farmacêutica com mais de 10 anos de atuação no mercado de saúde e bem-estar, com unidades físicas no Nordeste do Brasil e canal de vendas online para todo o país. Além de medicamentos e produtos de higiene, oferece serviços farmacêuticos diferenciados em suas lojas físicas, como salas de vacinação e exames laboratoriais rápidos.
+O setor farmacêutico demonstrou grande resiliência nos últimos anos, impulsionado pela mudança de hábitos de consumo durante o período de isolamento — quando parte significativa da população passou a priorizar autocuidado, prevenção e manutenção da saúde de forma mais sistemática. Diante desse cenário, a FarmaSaúde iniciou um plano de transformação digital com foco na estruturação dos dados de clientes e no lançamento de um programa de fidelidade, que passou a permitir a identificação das compras nas lojas físicas — canal responsável pelo maior volume de vendas da empresa.
+Este projeto documenta as análises desenvolvidas pelo time de dados para responder às quatro questões estratégicas levantadas pelo CEO, descritas a seguir.
+Questões Estratégicas e Abordagem
+1. Previsão de Demanda
+Pergunta: Qual a previsão de venda diária de produtos para Adultos nos próximos seis meses?
+A análise partiu da exploração da série temporal de vendas diárias do segmento Adulto. Foram utilizadas técnicas de decomposição sazonal, análise de autocorrelação (PACF) e periodograma para identificar os padrões presentes nos dados — onde ficou evidente uma sazonalidade semanal forte (lag 7) e uma tendência de crescimento ao longo do período analisado.
+Para a modelagem, foram avaliados três abordagens: SARIMAX com features de Fourier, XGBoost com features temporais e de lag, e Prophet com sazonalidade anual e feriados brasileiros. O modelo Prophet foi selecionado por apresentar melhor equilíbrio entre acurácia e interpretabilidade, gerando previsões diárias com intervalo de confiança para um horizonte de 180 dias (~6 meses).
+
+2. Segmentação de Clientes
+Pergunta: É possível segmentar os clientes em grupos? Há algum grupo mais rentável?
+Em desenvolvimento
+
+3. Análise de Churn e Retenção
+Pergunta: Qual o grupo de clientes com maior risco de churn (inatividade acima de 90 dias)?
+Em desenvolvimento
+
+4. Recomendação de Produtos
+Pergunta: Quais produtos recomendar a cada cliente com base em seu perfil e histórico de compras?
+Em desenvolvimento

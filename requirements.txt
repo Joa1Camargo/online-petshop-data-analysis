@@ -1,0 +1,7 @@
+numpy 
+pandas 
+datetime 
+matplotlib.pyplot 
+plotly.express 
+plotly.graph_objects
+picke
