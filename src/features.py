@@ -1,4 +1,6 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+from scipy.signal import periodogram
 
 
 def add_calendar_features(df: pd.DataFrame) -> pd.DataFrame:
