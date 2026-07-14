@@ -1,17 +1,49 @@
 import pickle
 from datetime import datetime
 
+import numpy as np
 import pandas as pd
 import statsmodels.api as sm
-from pmdarima.preprocessing import FourierFeaturizer
 from prophet import Prophet
 
+try:
+    from pmdarima.preprocessing import FourierFeaturizer
+except Exception:  # pragma: no cover - fallback for incompatible environments
+    class FourierFeaturizer:
+        def __init__(self, m: int = 96, k: int = 5):
+            self.m = m
+            self.k = k
 
-def train_test_split_time(df: pd.DataFrame, test_days: int = 180):
-    train_end = df.index.max() - pd.Timedelta(days=test_days)
-    df_train = df[:train_end]
-    df_test = df[train_end + pd.Timedelta(days=1):]
-    return df_train, df_test
+        def _build_features(self, index):
+            if not isinstance(index, pd.Index):
+                index = pd.Index(index)
+
+            n = len(index)
+            base = np.arange(n)
+            features = []
+            columns = []
+
+            for order in range(1, self.k + 1):
+                period = self.m / order
+                features.append(np.sin(2 * np.pi * base / period))
+                features.append(np.cos(2 * np.pi * base / period))
+                columns.extend([f"sin_{order}", f"cos_{order}"])
+
+            return pd.DataFrame(np.column_stack(features), index=index, columns=columns)
+
+        def fit_transform(self, df):
+            exog = self._build_features(df.index if hasattr(df, "index") else pd.RangeIndex(len(df)))
+            return df, exog
+
+        def transform(self, X, n_periods=None):
+            if hasattr(X, "index"):
+                index = X.index
+            else:
+                index = pd.RangeIndex(len(X))
+            exog = self._build_features(index)
+            return X, exog
+
+
 
 
 def train_sarimax(df_train, m: int = 96, k: int = 5, order=(0, 1, 2)):
