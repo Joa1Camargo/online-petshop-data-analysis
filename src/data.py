@@ -56,7 +56,7 @@ def load_raw_tables(base_path: Union[str, Path]):
     products_df = pd.read_csv(base_path / "products.csv")
     sales_df = pd.read_csv(
         base_path / "sales.csv",
-        dtype={"QUANTITY": "string"},
+        dtype={"SALE_CATEGORY": "string","QUANTITY": "Int64"},
         low_memory=False,
     )
 
