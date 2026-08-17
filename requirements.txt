@@ -3,6 +3,10 @@ numpy<2
 matplotlib
 seaborn
 plotly
+kaleido
 statsmodels
 pmdarima
 prophet
+scikit-learn
+scipy
+joblib
