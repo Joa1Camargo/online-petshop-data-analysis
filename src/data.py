@@ -56,7 +56,7 @@ def load_raw_tables(base_path: Union[str, Path]):
     products_df = pd.read_csv(base_path / "products.csv")
     sales_df = pd.read_csv(
         base_path / "sales.csv",
-        dtype={"QUANTITY": "string"},
+        dtype={"QUANTITY": "Int64"},
         low_memory=False,
     )
 
@@ -139,3 +139,9 @@ def merge_sales_products(
         how="left",
         validate="many_to_one",
     )
+
+def _first_word(s):
+    try:
+        return s.split(" ")[0]
+    except AttributeError:
+        return np.nan
