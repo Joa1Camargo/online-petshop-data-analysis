@@ -1,21 +1,39 @@
-# Case PharmaSaude
+# Pet Shop Data Science Case
 
-## Context and Problem
+## Business Context
 
-PharmaSaude has been operating in the pharmaceutical, veterinary, and wellness sectors for over 10 years, with physical units distributed across Northeast Brazil and, more recently, with online sales nationwide.
+This project explores how a multi-channel pet shop can use customer and transaction data to improve demand planning, customer retention, segmentation, and product recommendations. The business operates physical stores and offers services such as veterinary care and grooming, alongside online sales.
 
-The pharmaceutical market has shown great resilience and continues to expand. Many people changed their consumption habits during the isolation period, starting to prioritize self-care, prevention, and health maintenance more rigorously. PharmaSaude's CEO has a major concern regarding how the company will capture and retain this growing market share.
+The team wants to make better use of purchase history to understand demand, identify different customer behaviors, and support more relevant retention and recommendation actions.
 
-Since the beginning of last year, PharmaSaude initiated a plan to accelerate the company's digital transformation and structure customer data to improve their buying journey. Based on the analyses conducted, they decided to launch a loyalty program that allows identifying customer purchases in physical stores, the channel where they have the highest sales volume and direct interaction.
+## Important Note About the Data
 
-The CEO is analytical and results-oriented, actively participates in the company's transformations, and guides the team in strategic planning. He provides an environment with total autonomy for the team to make the necessary changes and reviews the results of the initiatives monthly in a committee. The expectations regarding the return on these transformations are high.
+The datasets included with this project are **samples for demonstration**. They are not the original business data. The included sample generator creates synthetic pet-retail data for reproducible analysis; sample rows and aggregate patterns should not be interpreted as actual company activity.
 
-The CEO sent me some strategic questions, asking for my help to answer them:
+Consequently, all charts, cluster profiles, churn rates, forecasts, recommendations, and evaluation metrics shown in the notebooks are specific to the sample data and may differ when the original data is used. They are illustrative results, not business estimates or validated production performance. The available sample tables primarily contain customer, product, and transaction information; they do not include browsing events or monetary fields such as revenue, cost, or margin.
 
-## Strategic Questions
+## Business Questions
 
-1. Demand Forecasting: We want to plan the sales of Adult medications for the next six months. What is the daily sales forecast for this category across our units?
-2. Customer Segmentation: We know that not all customers have the same profile; some generate a much higher LTV (Lifetime Value) than others. Can we segregate customers into specific groups? Is there any significantly more profitable segment?
-3. Churn and Retention Analysis: One of the priorities for next year is to increase retention. In the company, we consider a customer inactive when they do not make any transactions for more than 90 days. What would be the target group for retention actions? That is: which customer profile presents the highest risk of churn?
-4. Product Recommendation: Based on purchase history and browsing behavior, what other products (such as vitamins, dermocosmetics, or hygiene items) can we offer in a personalized way to each customer?
----
+1. **Demand forecasting:** What is the expected daily demand for dog products over the next six months?
+2. **Customer segmentation:** Which distinct purchase-behavior groups can be identified, and how do they differ? Monetary value or profitability comparisons require revenue and margin data that are not present in the included samples.
+3. **Churn and retention:** Given the project's 90-day inactivity definition, which customers appear most likely to become inactive and could be prioritized for retention actions?
+4. **Product recommendations:** Which products can be recommended to customers based on their purchase history? Browsing-based recommendations require browsing data, which is not included in the sample tables.
+
+## Project Structure
+
+- `notebooks/01.saleforecast.ipynb` — demand exploration and forecasting
+- `notebooks/02.customer_segmentation.ipynb` — behavioral customer segmentation
+- `notebooks/03.churn_recommendation.ipynb` — churn labeling and classification
+- `notebooks/04.product_recomendation.ipynb` — collaborative filtering and basket analysis
+- `src/` — shared data, feature, evaluation, training, and sample-generation utilities
+- `data/sample/` — included sample datasets
+
+## Running the Sample Data Generator
+
+From the repository root, generate a deterministic synthetic dataset with:
+
+```bash
+python -m src.sample --output-dir data/sample
+```
+
+The generator accepts `--seed`, `--customers`, `--products`, and `--orders` options. Changing the seed or dataset size can also change the analytical results.
