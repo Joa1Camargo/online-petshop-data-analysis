@@ -10,3 +10,5 @@ prophet
 scikit-learn
 scipy
 joblib
+mlxtend
+graphviz
